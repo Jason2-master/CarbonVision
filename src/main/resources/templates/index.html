@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CarbonVision - 개발 테스트용 메인</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #222222;
+            font-family: 'Malgun Gothic', sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 22px;
+            border-bottom: 2px solid #222;
+            padding-bottom: 10px;
+            margin-bottom: 24px;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding: 16px;
+            border: 1px solid #dddddd;
+            border-radius: 6px;
+        }
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555555;
+            margin-bottom: 10px;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        button {
+            padding: 8px 14px;
+            font-size: 14px;
+            background-color: #f8f9fa;
+            color: #222222;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e9ecef;
+        }
+        .btn-kakao {
+            background-color: #FEE500;
+            border-color: #FEE500;
+            font-weight: bold;
+        }
+        .btn-kakao:hover {
+            background-color: #fada0a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CarbonVision 페이지 이동 테스트</h1>
+
+    <!-- 조형준: 메인페이지 · 서비스소개 -->
+    <div class="section">
+        <div class="section-title">조형준 — 메인페이지 · 서비스소개</div>
+        <div class="btn-group">
+            <button type="button" onclick="location.href='/'">메인페이지 (/)</button>
+            <button type="button" onclick="location.href='/about'">서비스 소개 (/about)</button>
+        </div>
+    </div>
+
+    <!-- 이동민: 마이페이지 · 회원관리 -->
+    <div class="section">
+        <div class="section-title">이동민 — 마이페이지 · 회원관리</div>
+        <div class="btn-group" th:if="${session.loginUser == null}">
+            <button type="button" onclick="location.href='/member/signIn'">로그인 (/member/signIn)</button>
+            <button type="button" onclick="location.href='/member/enroll'">회원가입 (/member/enroll)</button>
+            <button type="button" class="btn-kakao" onclick="location.href='/auth/kakao'">카카오 로그인 (/auth/kakao)</button>
+            <button type="button" onclick="location.href='/member/findIDPW'">ID/PW 찾기 (/member/findIDPW)</button>
+        </div>
+        <div class="btn-group" th:if="${session.loginUser != null}">
+            <span><strong>[[${session.loginUser.nickName}]]</strong>님 로그인 중</span>
+            <button type="button" onclick="location.href='/member/myPage'">마이페이지 (/member/myPage)</button>
+            <button type="button" onclick="location.href='/member/logout'">로그아웃 (/member/logout)</button>
+        </div>
+    </div>
+
+    <!-- 공통: AI 이미지 분석 -->
+    <div class="section">
+        <div class="section-title">공통 — AI 이미지 분석</div>
+        <div class="btn-group">
+            <button type="button" onclick="location.href='/bill/ai'">실제 고지서 AI 분석 (/bill/ai)</button>
+        </div>
+    </div>
+
+    <!-- 정휘산: 자료실/사용량 · 통계 · 그래프 -->
+    <div class="section">
+        <div class="section-title">정휘산 — 자료실/사용량 · 통계 · 그래프</div>
+        <div class="btn-group">
+            <button type="button" onclick="location.href='/energy/dashboard'">사용량 · 통계 · 그래프 (/energy/dashboard)</button>
+            <button type="button" onclick="location.href='/archive/list'">자료실 (/archive/list)</button>
+        </div>
+    </div>
+
+    <!-- 심현수: 랭킹 · 챌린지 · 디자인 -->
+    <div class="section">
+        <div class="section-title">심현수 — 랭킹 · 챌린지</div>
+        <div class="btn-group">
+            <button type="button" onclick="location.href='/ranking/list'">랭킹 (/ranking/list)</button>
+            <button type="button" onclick="location.href='/challenge/list'">챌린지 (/challenge/list)</button>
+        </div>
+    </div>
+
+    <!-- 최건영: 커뮤니티 · 커뮤니티관리 -->
+    <div class="section">
+        <div class="section-title">최건영 — 커뮤니티 · 커뮤니티관리</div>
+        <div class="btn-group">
+            <button type="button" onclick="location.href='/board/list'">커뮤니티 (/board/list)</button>
+            <button type="button" onclick="location.href='/admin/board'">커뮤니티 관리 (/admin/board)</button>
+        </div>
+    </div>
+
+</body>
+</html>
