@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - 페이지를 찾을 수 없음</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        .code {
+            font-size: 48px;
+            font-weight: bold;
+            color: #e67e22;
+            margin: 0;
+        }
+        .title {
+            font-size: 20px;
+            margin: 8px 0 12px;
+        }
+        .desc {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .meta {
+            background: #f1f3f5;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 24px;
+            word-break: break-all;
+        }
+        .check-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+        ol {
+            padding-left: 20px;
+            margin: 0 0 24px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        li { margin-bottom: 8px; }
+        .btn-group { display: flex; gap: 8px; }
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        button.primary {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p class="code">404</p>
+    <h1 class="title">페이지를 찾을 수 없습니다 (Not Found)</h1>
+    <p class="desc">
+        요청하신 URL 주소에 해당하는 컨트롤러나 화면(HTML) 파일이 서버에 존재하지 않습니다.
+    </p>
+
+    <div class="meta">
+        <div><strong>요청 경로:</strong> <span th:text="${path}">/unknown</span></div>
+        <div><strong>발생 시각:</strong> <span th:text="${timestamp}">-</span></div>
+    </div>
+
+    <div class="check-title">어디를 확인하면 좋을까요? (유력한 순서)</div>
+    <ol>
+        <li>
+            <strong>Controller URL 매핑 확인:</strong>
+            클래스 상단 <code>@RequestMapping</code>과 메서드의 <code>@GetMapping</code> / <code>@PostMapping</code> 주소 오타 및 슬래시(<code>/</code>) 누락 여부
+        </li>
+        <li>
+            <strong>HTML·JS 요청 경로 확인:</strong>
+            <code>&lt;a href&gt;</code>, <code>&lt;form action&gt;</code>, <code>location.href</code>, <code>fetch()</code>에 적은 URL이 컨트롤러와 일치하는지 확인
+        </li>
+        <li>
+            <strong>반환한 View(HTML) 파일 경로·이름 확인:</strong>
+            컨트롤러가 <code>return</code>한 문자열과 <code>templates/</code> 하위 실제 파일명(대소문자 포함)이 일치하는지 확인
+        </li>
+        <li>
+            <strong>정적 리소스 경로 확인:</strong>
+            CSS·JS·이미지 파일이 <code>static/</code> 폴더 안에 정확한 경로로 있는지 확인
+        </li>
+    </ol>
+
+    <div class="btn-group">
+        <button type="button" onclick="history.back()">이전 페이지</button>
+        <button type="button" class="primary" onclick="location.href='/'">index로 이동</button>
+    </div>
+</div>
+</body>
+</html>
