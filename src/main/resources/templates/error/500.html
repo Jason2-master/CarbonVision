@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>500 - 서버 내부 오류</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', sans-serif;
+            background-color: #f8f9fa;
+            color: #222;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        .code {
+            font-size: 48px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 0;
+        }
+        .title {
+            font-size: 20px;
+            margin: 8px 0 12px;
+        }
+        .desc {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .meta {
+            background: #fff5f5;
+            border: 1px solid #ffc9c9;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 24px;
+            word-break: break-all;
+        }
+        .check-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 6px;
+        }
+        ol {
+            padding-left: 20px;
+            margin: 0 0 24px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        li { margin-bottom: 8px; }
+        .btn-group { display: flex; gap: 8px; }
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+        }
+        button.primary {
+            background: #222;
+            color: #fff;
+            border-color: #222;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <p class="code">500</p>
+    <h1 class="title">서버 내부 오류가 발생했습니다 (Internal Server Error)</h1>
+    <p class="desc">
+        요청은 서버에 정상적으로 도착했으나, 백엔드(Java·DB) 처리 또는 화면(Thymeleaf) 렌더링 도중 예외가 발생했습니다.
+    </p>
+
+    <div class="meta">
+        <div><strong>요청 경로:</strong> <span th:text="${path}">/error</span></div>
+        <div><strong>발생 시각:</strong> <span th:text="${timestamp}">-</span></div>
+        <div th:if="${message != null and !#strings.isEmpty(message)}">
+            <strong>에러 메시지:</strong> <span th:text="${message}"></span>
+        </div>
+    </div>
+
+    <div class="check-title">어디를 확인하면 좋을까요? (유력한 순서)</div>
+    <ol>
+        <li>
+            <strong>IDE 콘솔의 빨간색 로그 (<code>Caused by:</code>) 확인:</strong>
+            가장 먼저 콘솔을 열고 아래쪽 <code>Caused by</code> 문구와 내 패키지(Controller·Service)가 찍힌 파일명·줄 번호를 확인
+        </li>
+        <li>
+            <strong>MyBatis Mapper XML 및 Oracle SQL 확인:</strong>
+            쿼리 끝 세미콜론(<code>;</code>) 혼입, Mapper <code>namespace</code>·<code>id</code> 불일치(<code>BindingException</code>), 컬럼명 오타(<code>ORA-00904</code>), <code>NULL</code> 파라미터 바인딩 확인
+        </li>
+        <li>
+            <strong>Java 로직 및 NullPointerException 확인:</strong>
+            DB 조회 결과가 <code>null</code>인데 메서드를 호출했거나, <code>@RequestParam</code> 이름 누락·불일치 및 타입 변환 오류 확인
+        </li>
+        <li>
+            <strong>Thymeleaf 문법 및 DTO Getter 확인:</strong>
+            <code>th:</code> 표현식 오타, <code>${객체.필드명}</code>에 해당하는 Getter 누락, 또는 <code>null</code> 객체의 속성에 접근했는지 확인
+        </li>
+    </ol>
+
+    <div class="btn-group">
+        <button type="button" onclick="history.back()">이전 페이지</button>
+        <button type="button" class="primary" onclick="location.href='/'">index로 이동</button>
+    </div>
+</div>
+</body>
+</html>
