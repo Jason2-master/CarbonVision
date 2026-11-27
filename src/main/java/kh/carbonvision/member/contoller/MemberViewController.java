@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/member")
-public class MemberController {
+public class MemberViewController {
 
 	@GetMapping("signIn")
 	public String signInPage() {
