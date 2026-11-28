@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/member")
 public class MemberViewController {
 
-	@GetMapping("signIn")
+	@GetMapping("logIn")
 	public String signInPage() {
-		return "login";
+		return "logIn";
 	}
 	
 }

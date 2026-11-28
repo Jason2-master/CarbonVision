@@ -75,13 +75,13 @@
     <div class="section">
         <div class="section-title">이동민 — 마이페이지 · 회원관리</div>
         <div class="btn-group" th:if="${session.loginUser == null}">
-            <button type="button" onclick="location.href='/member/signIn'">로그인 (/member/signIn)</button>
+            <button type="button" onclick="location.href='/member/logIn'">로그인 (/member/logIn)</button>
             <button type="button" onclick="location.href='/member/enroll'">회원가입 (/member/enroll)</button>
             <button type="button" class="btn-kakao" onclick="location.href='/auth/kakao'">카카오 로그인 (/auth/kakao)</button>
             <button type="button" onclick="location.href='/member/findIDPW'">ID/PW 찾기 (/member/findIDPW)</button>
         </div>
         <div class="btn-group" th:if="${session.loginUser != null}">
-            <span><strong>[[${session.loginUser.nickName}]]</strong>님 로그인 중</span>
+            <span><strong>[[${session.loginUser.nickname}]]</strong>님 로그인 중</span>
             <button type="button" onclick="location.href='/member/myPage'">마이페이지 (/member/myPage)</button>
             <button type="button" onclick="location.href='/member/logout'">로그아웃 (/member/logout)</button>
         </div>
