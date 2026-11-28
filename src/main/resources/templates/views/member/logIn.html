@@ -39,10 +39,31 @@
     <script>
     	window.addEventListener("load",()=>{
 			document.getElementById("loginBtn").addEventListener("click",()=>{
-				const id = document.getElementById("id");
+				const id = document.getElementById("id").value;
 				const pwd = document.getElementById("pwd");
 				
-				fetch()
+				fetch('/rest/member/logIn',{
+					method:'post',
+					headers:{'content-type':'application/x-www-form-urlencoded'},
+					body: new URLSearchParams({
+						memberId:id.trim(),
+						memberPwd:pwd.value.trim()
+					})
+				})
+				.then(res => res.text())
+				.then(data => {
+					const errorMsg = document.getElementById('errorMsg');
+
+					if (data.trim() === 'success') {
+					    location.href = '/';
+					} else {
+					    pwd.value = '';           // 비밀번호 입력창 비우기
+					    pwd.focus();              // 바로 다시 입력할 수 있게 커서 이동
+					    errorMsg.style.color = 'red';  // 빨간색 지정
+					    errorMsg.textContent = '아이디 또는 비밀번호가 일치하지 않습니다.';
+					}
+				})
+				.catch(err => console.log(err))
 			});
     	});
     </script>
